@@ -220,8 +220,9 @@ public class ControladorUsuario {
                 }
                 suma = suma + ope;
             }
-
         }
+        if(suma != 0){
+            
         suma = suma % 10;
         if (suma == 0) {
             if (suma == num) {
@@ -232,6 +233,9 @@ public class ControladorUsuario {
             if (ope == num) {
                 verdadera = true;
             }
+        }
+        }else{
+            verdadera = false;
         }
         return verdadera;
     }
