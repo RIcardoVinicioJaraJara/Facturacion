@@ -48,6 +48,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     ControladorProveedor controladorProveedor;
     private int codigoID = -999;
     private Producto productoAux = null;
+    private boolean barraBandera = false;
 
     public VistaProducto() {
         initComponents();
@@ -70,7 +71,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
             comboProveedor.addItem(p.getId() + ": " + p.getNombre());
             comboProveedorM.addItem(p.getId() + ": " + p.getNombre());
         }
-        actualizarCodigo();
+        //actualizarCodigo();
 
     }
 
@@ -94,12 +95,13 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         foto = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        comboCategoria = new javax.swing.JComboBox<>();
+        comboCategoria = new javax.swing.JComboBox<String>();
         jLabel4 = new javax.swing.JLabel();
-        comboProveedor = new javax.swing.JComboBox<>();
+        comboProveedor = new javax.swing.JComboBox<String>();
         jLabel30 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtEliminar = new javax.swing.JTextField();
@@ -133,9 +135,9 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         txtNombreM = new javax.swing.JTextField();
         fotoM = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        comboCategoriaM = new javax.swing.JComboBox<>();
+        comboCategoriaM = new javax.swing.JComboBox<String>();
         jLabel13 = new javax.swing.JLabel();
-        comboProveedorM = new javax.swing.JComboBox<>();
+        comboProveedorM = new javax.swing.JComboBox<String>();
         jLabel35 = new javax.swing.JLabel();
         txtStockM = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
@@ -235,6 +237,12 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         jLabel36.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel36.setText("CODIGO");
 
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -263,28 +271,26 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(246, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(290, 290, 290))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80))))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(316, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(290, 290, 290))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel36)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
@@ -299,21 +305,31 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel25))
-                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30)
-                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(67, 67, 67)
-                .addComponent(jButton1)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel30)
+                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(67, 67, 67)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
 
@@ -507,7 +523,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                 .addComponent(txtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85)
                 .addComponent(buscarE)
-                .addGap(0, 197, Short.MAX_VALUE))
+                .addGap(0, 267, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -687,7 +703,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                                 .addComponent(txtModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(91, 91, 91)
                                 .addComponent(buscarM)
-                                .addGap(0, 186, Short.MAX_VALUE)))
+                                .addGap(0, 256, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
@@ -737,7 +753,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                 .addGap(131, 131, 131)
                 .addComponent(jLabel23)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -845,7 +861,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCategoriaB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtProveedorB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(380, Short.MAX_VALUE))
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -908,7 +924,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(buscarB)
-                        .addGap(0, 156, Short.MAX_VALUE))
+                        .addGap(0, 226, Short.MAX_VALUE))
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -928,7 +944,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
         panelCrud.addTab("BUSCAR", jPanel3);
 
-        getContentPane().add(panelCrud, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 48, 690, 430));
+        getContentPane().add(panelCrud, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 48, 760, 430));
 
         jLabel6.setFont(new java.awt.Font("Sitka Heading", 2, 24)); // NOI18N
         jLabel6.setText("CONTROLADOR PRODUCTO");
@@ -962,7 +978,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         foto.setIcon(icon);
     }
 
-    private void CodigoEliminar(int codigoID) {
+    private void CodigoEliminar(String codigoID) {
         Barcode barcode = null;
         try {
             barcode = BarcodeFactory.createCode39(codigoID + "", true);
@@ -984,7 +1000,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         fotoE.setIcon(icon);
     }
 
-    private ImageIcon Codigolistar(int codigoID) {
+    private ImageIcon Codigolistar(String codigoID) {
         Barcode barcode = null;
         try {
             barcode = BarcodeFactory.createCode39(codigoID + "", true);
@@ -1006,7 +1022,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         return icon;
     }
 
-    private void CodigoBuscar(int codigoID) {
+    private void CodigoBuscar(String codigoID) {
         Barcode barcode = null;
         try {
             barcode = BarcodeFactory.createCode39(codigoID + "", true);
@@ -1058,7 +1074,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
             int stock = Integer.parseInt(txtStock.getText());
             Categoria categoria = controladorCategoria.buscar(obtenerCodigoCombo(comboCategoria));
             Proveedor proveedor = controladorProveedor.buscarID(obtenerCodigoCombo(comboProveedor));
-            int codigo = id + 999;
+            String codigo = txtCodigo.getText();
             Producto producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo);
 
             if (controladorProducto.ingresar(producto)) {
@@ -1218,7 +1234,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
             int stock = Integer.parseInt(txtStockM.getText());
             Categoria categoria = controladorCategoria.buscar(obtenerCodigoCombo(comboCategoriaM));
             Proveedor proveedor = controladorProveedor.buscarID(obtenerCodigoCombo(comboProveedorM));
-            int codigo = productoAux.getCodigo();
+            String codigo = productoAux.getCodigo();
             Producto producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo);
 
             if (controladorProducto.actualizar(producto)) {
@@ -1288,7 +1304,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
             productoAux = null;
         }
     }//GEN-LAST:event_buscarMActionPerformed
-    private void CodigoModificar(int codigoID) {
+    private void CodigoModificar(String codigoID) {
         Barcode barcode = null;
         try {
             barcode = BarcodeFactory.createCode39(codigoID + "", true);
@@ -1360,6 +1376,36 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private void txtStockBKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStockBKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStockBKeyTyped
+
+    private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
+        try {
+            Barcode barcode = null;
+            try {
+                barcode = BarcodeFactory.createCode39(txtCodigo.getText() + "", true);
+            } catch (Exception e) {
+                foto.setIcon(null);
+                System.out.println(e.getMessage());
+            }
+            barcode.setDrawingText(false);
+
+            barcode.setBarWidth(2);
+            barcode.setBarHeight(60);
+            BufferedImage image = new BufferedImage(300, 100, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = (Graphics2D) image.getGraphics();
+
+            try {
+                barcode.draw(g, 5, 20);
+
+            } catch (Exception e) {
+            }
+            ImageIcon icon = new ImageIcon(image);
+            foto.setIcon(icon);
+            barraBandera = true;
+        } catch (Exception e) {
+            barraBandera = false;
+        }
+
+    }//GEN-LAST:event_txtCodigoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1434,6 +1480,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCategoriaB;
     private javax.swing.JTextField txtCategoriaE;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEliminar;
     private javax.swing.JTextField txtModificar;
     private javax.swing.JTextField txtNombre;

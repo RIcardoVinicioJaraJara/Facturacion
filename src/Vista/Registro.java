@@ -54,7 +54,7 @@ public class Registro extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         direcion5 = new javax.swing.JLabel();
         direcion6 = new javax.swing.JLabel();
-        comboRol = new javax.swing.JComboBox<>();
+        comboRol = new javax.swing.JComboBox<String>();
         txtDirecion = new javax.swing.JTextField();
         direcion12 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
@@ -151,7 +151,7 @@ public class Registro extends javax.swing.JFrame {
         jPanel1.add(direcion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 80, -1));
 
         comboRol.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "ADMIN", "USER" }));
+        comboRol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE", "ADMIN", "USER" }));
         jPanel1.add(comboRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 140, -1));
 
         txtDirecion.addKeyListener(new java.awt.event.KeyAdapter() {

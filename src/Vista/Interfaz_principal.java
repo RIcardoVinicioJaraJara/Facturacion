@@ -13,7 +13,6 @@ import javax.swing.JPanel;
  * @author WILSON O
  */
 public class Interfaz_principal extends javax.swing.JFrame {
-
     public Interfaz_principal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -61,14 +60,13 @@ public class Interfaz_principal extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         escritorio.setBackground(java.awt.Color.lightGray);
+        escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblRol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        escritorio.add(lblRol);
-        lblRol.setBounds(60, 190, 140, 60);
+        escritorio.add(lblRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 140, 60));
 
         lblNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        escritorio.add(lblNombre);
-        lblNombre.setBounds(60, 120, 140, 60);
+        escritorio.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 140, 60));
 
         jMenu1.setBorder(new javax.swing.border.MatteBorder(null));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/Clientes.png"))); // NOI18N
@@ -174,12 +172,12 @@ public class Interfaz_principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1500, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                .addComponent(escritorio)
                 .addContainerGap())
         );
 

@@ -41,7 +41,7 @@ public class ControladorProducto {
             statement.setString(1, producto.getNombre());
             statement.setDouble(2, producto.getPrecio());
             statement.setInt(3, producto.getStock());
-            statement.setInt(4, producto.getCodigo());
+            statement.setString(4, producto.getCodigo());
             statement.setInt(5, producto.getProveedor().getId());
             statement.setInt(6, producto.getCategoria().getId());
             statement.execute();
@@ -75,7 +75,7 @@ public class ControladorProducto {
             statement.setString(1, producto.getNombre());
             statement.setDouble(2, producto.getPrecio());
             statement.setInt(3, producto.getStock());
-            statement.setInt(4, producto.getCodigo());
+            statement.setString(4, producto.getCodigo());
             statement.setInt(5, producto.getProveedor().getId());
             statement.setInt(6, producto.getCategoria().getId());
             statement.execute();
@@ -99,7 +99,7 @@ public class ControladorProducto {
                 String nombre = seter.getString(2);
                 double precio = seter.getDouble(3);
                 int stock = seter.getInt(4);
-                int codigo = seter.getInt(5);
+                String codigo = seter.getString(5);
                 Categoria categoria = controladorCategoria.buscar(seter.getString(6));
                 Proveedor proveedor = controladorProveedor.buscarID(seter.getString(7));
 
@@ -124,7 +124,7 @@ public class ControladorProducto {
                 String nombre = seter.getString(2);
                 double precio = seter.getDouble(3);
                 int stock = seter.getInt(4);
-                int codigo = seter.getInt(5);
+                 String codigo = seter.getString(5);
                 Proveedor proveedor = controladorProveedor.buscarID(seter.getString(6));
                 Categoria categoria = controladorCategoria.buscar(seter.getString(7));
 

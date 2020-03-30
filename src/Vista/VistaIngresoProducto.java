@@ -313,7 +313,7 @@ public class VistaIngresoProducto extends javax.swing.JInternalFrame {
         productoAux = null;
     }
 
-    private void CodigoBuscar(int codigoID) {
+    private void CodigoBuscar(String codigoID) {
         Barcode barcode = null;
         try {
             barcode = BarcodeFactory.createCode39(codigoID + "", true);
