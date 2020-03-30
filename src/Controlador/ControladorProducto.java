@@ -125,8 +125,8 @@ public class ControladorProducto {
                 double precio = seter.getDouble(3);
                 int stock = seter.getInt(4);
                  String codigo = seter.getString(5);
-                Proveedor proveedor = controladorProveedor.buscarID(seter.getString(6));
-                Categoria categoria = controladorCategoria.buscar(seter.getString(7));
+                Proveedor proveedor = controladorProveedor.buscarID(seter.getString(7));
+                Categoria categoria = controladorCategoria.buscar(seter.getString(6));
 
                 producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo);
                 return producto;
