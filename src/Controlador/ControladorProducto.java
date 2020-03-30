@@ -114,7 +114,7 @@ public class ControladorProducto {
     }
 
     public Producto buscar(String cod) {
-        String sql = "select * from producto where ID = '" + cod + "'";
+        String sql = "select * from producto where codigo = '" + cod + "'";
         Producto producto = null;
         try {
             Statement se = coneccion.createStatement();

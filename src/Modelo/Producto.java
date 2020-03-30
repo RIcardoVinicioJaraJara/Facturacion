@@ -31,7 +31,7 @@ public class Producto {
         this.stock = stock;
         this.categoria = categoria;
         this.proveedor = proveedor;
-        this.codigo = codigo+999;
+        this.codigo = codigo;
     }
 
     public int getId() {

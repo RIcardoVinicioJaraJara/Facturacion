@@ -60,13 +60,31 @@ public class Interfaz_principal extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         escritorio.setBackground(java.awt.Color.lightGray);
-        escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblRol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        escritorio.add(lblRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 140, 60));
 
         lblNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        escritorio.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 140, 60));
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        escritorio.setLayer(lblRol, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setBorder(new javax.swing.border.MatteBorder(null));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/Clientes.png"))); // NOI18N
