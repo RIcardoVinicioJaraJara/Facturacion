@@ -124,7 +124,7 @@ public class ControladorDetalle {
                 int id = seter.getInt(1);
                 int cantidad = seter.getInt(2);
                 double subtotal = seter.getDouble(3);
-                Producto producto = controladorProducto.buscar(seter.getInt(4) + "");
+                Producto producto = controladorProducto.buscarID(seter.getString(4) + "");
                 Factura factura = controladorFactura.buscarID(seter.getInt(5) + "");
                 Detalle detalle = new Detalle(id, cantidad, subtotal, producto, factura);
                 lista.add(detalle);

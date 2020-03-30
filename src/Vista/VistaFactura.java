@@ -647,9 +647,10 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tablaFacturasMouseClicked
 
     private void buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar1ActionPerformed
-        int cod = 0, can = 0;
+        String cod = "";
+        int can = 0;
         try {
-            cod = Integer.parseInt(JOptionPane.showInputDialog(this, "INGRESE CODIGO DEL INGRESO DE PRODUCTOS"));
+            cod = JOptionPane.showInputDialog(this, "INGRESE CODIGO DEL INGRESO DE PRODUCTOS");
             Producto producto = controladorProducto.buscar(cod + "");
 
             if (producto != null) {
@@ -690,7 +691,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 int cant = numero;
                     model = (DefaultTableModel) tablaDetalle.getModel();
                 
-                    model.insertRow(model.getRowCount(), new Object[]{producto.getId(), producto.getNombre(), cant, producto.getPrecio(), (producto.getPrecio() * cant)});
+                    model.insertRow(model.getRowCount(), new Object[]{producto.getCodigo(), producto.getNombre(), cant, producto.getPrecio(), (producto.getPrecio() * cant)});
                     
                     double suma = 0;
                     for (int i = 0; i < tablaDetalle.getRowCount(); i++) {

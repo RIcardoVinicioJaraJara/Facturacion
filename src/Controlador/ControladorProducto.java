@@ -136,6 +136,30 @@ public class ControladorProducto {
         }
         return producto;
     }
+    
+    public Producto buscarID(String cod) {
+        String sql = "select * from producto where id = '" + cod + "'";
+        Producto producto = null;
+        try {
+            Statement se = coneccion.createStatement();
+            ResultSet seter = se.executeQuery(sql);
+            while (seter.next()) {
+                int id = seter.getInt(1);
+                String nombre = seter.getString(2);
+                double precio = seter.getDouble(3);
+                int stock = seter.getInt(4);
+                 String codigo = seter.getString(5);
+                Proveedor proveedor = controladorProveedor.buscarID(seter.getString(6));
+                Categoria categoria = controladorCategoria.buscar(seter.getString(7));
+
+                producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo);
+                return producto;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error de lectura :" + ex.getMessage());
+        }
+        return producto;
+    }
 
     public int obtenerCodigo() {
         try {
