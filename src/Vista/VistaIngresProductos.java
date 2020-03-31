@@ -420,7 +420,6 @@ public class VistaIngresProductos extends javax.swing.JInternalFrame {
         if (txtCantidad.getText().length() > 0) {
             Producto producto = controladorProducto.buscar(txtBuscar.getText());
             Date date = new Date();
-
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String fecha = dateFormat.format(date);
             String motivo = "Ingres de nuevos productos | " + producto.getNombre();

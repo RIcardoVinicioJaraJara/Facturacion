@@ -7,13 +7,17 @@ package Controlador;
 
 import Modelo.Detalle;
 import Modelo.Factura;
+import Modelo.Historial;
 import Modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.JOptionPane;
@@ -29,11 +33,13 @@ public class ControladorDetalle {
     Connection coneccion;
     private ControladorFactura controladorFactura;
     private ControladorProducto controladorProducto;
+    private ControladorHistorial controladorHistorial;
 
     public ControladorDetalle() {
         coneccion = con.conectado();
         controladorFactura = new ControladorFactura();
         controladorProducto = new ControladorProducto();
+        controladorHistorial = new ControladorHistorial();
     }
 
     public boolean ingresar(Detalle detalle) {
@@ -46,8 +52,17 @@ public class ControladorDetalle {
             statement.setInt(3, detalle.getProducto().getId());
             statement.setInt(4, detalle.getFactura().getId());
             statement.execute();
-            // coneccion.commit();
 
+            Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String fecha = dateFormat.format(date);
+            String motivo = "Salen productos en venta de factura";
+            int cantidadAnt = detalle.getCantidad();
+            int cantidadNew = detalle.getProducto().getStock() - cantidadAnt;
+            int cantidadOld = detalle.getProducto().getStock();
+            Historial h = new Historial(0, fecha, motivo, detalle.getProducto(), cantidadAnt, cantidadNew, cantidadOld);
+
+            controladorHistorial.ingresar(h);
             return true;
         } catch (SQLException e) {
             System.out.println("ERROR: " + e);
@@ -114,7 +129,7 @@ public class ControladorDetalle {
     }
 
     public List<Detalle> listaDetalle(String coid) {
-        String sql = "SELECT * FROM detalle where factura = '" +coid+"'";
+        String sql = "SELECT * FROM detalle where factura = '" + coid + "'";
         List<Detalle> lista = new ArrayList<>();
 
         try {

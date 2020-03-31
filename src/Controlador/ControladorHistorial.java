@@ -83,8 +83,8 @@ public class ControladorHistorial {
                 String motivo = seter.getString(3);
                 Producto product0 = controladorProducto.buscarID(seter.getInt(4)+"");
                 int cantidadAnt = seter.getInt(5);
-                int cantidadNew = seter.getInt(5);
-                int cantidadOld = seter.getInt(5);
+                int cantidadNew = seter.getInt(6);
+                int cantidadOld = seter.getInt(7);
 
                Historial h = new Historial(id, fecha, motivo, product0, cantidadAnt, cantidadNew, cantidadOld);
 

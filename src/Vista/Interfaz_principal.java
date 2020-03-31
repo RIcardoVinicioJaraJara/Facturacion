@@ -283,7 +283,9 @@ public class Interfaz_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        VistaIngresHitorial vistaIngresHitorial = new VistaIngresHitorial();
+        escritorio.add(vistaIngresHitorial);
+        vistaIngresHitorial.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuItem4KeyPressed
