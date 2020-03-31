@@ -5,7 +5,9 @@
 package Vista;
 
 import Controlador.ControladorHistorial;
+import Controlador.ControladorProducto;
 import Modelo.Historial;
+import Modelo.Producto;
 import Modelo.Usuario;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -30,19 +32,32 @@ import javax.swing.JPanel;
  * @author WILSON O
  */
 public class Interfaz_principal extends javax.swing.JFrame {
+
     public Interfaz_principal() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+
+        System.out.println("jajaja");
     }
 
     public Interfaz_principal(Usuario usuario) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
 
         setLocationRelativeTo(null);
         lblNombre.setText(usuario.getNombre());
         lblRol.setText(usuario.getRol());
-
+        txtNotificacion.setVisible(false);
+        ControladorProducto controladorProducto = new ControladorProducto();
+        List<Producto> lista = controladorProducto.listar();
+        String notificacion = " ******************* NOTIFICACION *******************\n";
+        for (Producto lista1 : lista) {
+            if (lista1.getStock() < 11) {
+                notificacion = notificacion
+                        + "El producto: " + lista1.getNombre() + " Necesita productos en STOCK \n";
+                txtNotificacion.setVisible(true);
+                txtNotificacion.setText(notificacion);
+            }
+        }
+        this.setExtendedState(MAXIMIZED_BOTH);
         if (usuario.getRol().equals("USER")) {
             jMenu5.setVisible(false);
             jMenu2.setVisible(false);
@@ -61,6 +76,8 @@ public class Interfaz_principal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         lblRol = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtNotificacion = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -87,6 +104,12 @@ public class Interfaz_principal extends javax.swing.JFrame {
 
         lblNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtNotificacion.setEditable(false);
+        txtNotificacion.setColumns(20);
+        txtNotificacion.setFont(new java.awt.Font("MS Gothic", 1, 14)); // NOI18N
+        txtNotificacion.setRows(5);
+        jScrollPane1.setViewportView(txtNotificacion);
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -95,7 +118,9 @@ public class Interfaz_principal extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,9 +129,14 @@ public class Interfaz_principal extends javax.swing.JFrame {
                 .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
         );
         escritorio.setLayer(lblRol, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setBorder(new javax.swing.border.MatteBorder(null));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/Clientes.png"))); // NOI18N
@@ -327,13 +357,13 @@ public class Interfaz_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenuItem4KeyPressed
-        
+
     }//GEN-LAST:event_jMenuItem4KeyPressed
 
     private void item_venta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_venta1ActionPerformed
         imprimir();
     }//GEN-LAST:event_item_venta1ActionPerformed
-    public  void imprimir() {
+    public void imprimir() {
         Document document = new Document();
 
         try {
@@ -435,7 +465,7 @@ public class Interfaz_principal extends javax.swing.JFrame {
                     FontFactory.getFont("arial", 9, Font.BOLD, BaseColor.GREEN)));
             ControladorHistorial controladorHistorial = new ControladorHistorial();
             List<Historial> lsRiego = controladorHistorial.listar();
-           
+
             for (Historial h : lsRiego) {
 
                 table.addCell(h.getId() + "");
@@ -451,7 +481,6 @@ public class Interfaz_principal extends javax.swing.JFrame {
 
             document.add(Chunk.NEXTPAGE);
 
-           
             document.add(Chunk.NEWLINE);
 
             document.close();
@@ -464,6 +493,7 @@ public class Interfaz_principal extends javax.swing.JFrame {
         }
 
     }
+
     /**
      * @param args the command line arguments
      */
@@ -517,7 +547,9 @@ public class Interfaz_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRol;
+    private javax.swing.JTextArea txtNotificacion;
     // End of variables declaration//GEN-END:variables
 }
