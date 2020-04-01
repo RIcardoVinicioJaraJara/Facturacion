@@ -242,6 +242,9 @@ public class VistaProducto extends javax.swing.JInternalFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -462,10 +465,9 @@ public class VistaProducto extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCategoriaE, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtProveedorE, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtProveedorE, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(184, Short.MAX_VALUE)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13)))
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1407,32 +1409,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtStockBKeyTyped
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
-        try {
-            Barcode barcode = null;
-            try {
-                barcode = BarcodeFactory.createCode39(txtCodigo.getText() + "", true);
-            } catch (Exception e) {
-                foto.setIcon(null);
-                System.out.println(e.getMessage());
-            }
-            barcode.setDrawingText(false);
-
-            barcode.setBarWidth(2);
-            barcode.setBarHeight(60);
-            BufferedImage image = new BufferedImage(300, 100, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = (Graphics2D) image.getGraphics();
-
-            try {
-                barcode.draw(g, 5, 20);
-
-            } catch (Exception e) {
-            }
-            ImageIcon icon = new ImageIcon(image);
-            foto.setIcon(icon);
-            barraBandera = true;
-        } catch (Exception e) {
-            barraBandera = false;
-        }
+        
 
     }//GEN-LAST:event_txtCodigoKeyPressed
 
@@ -1467,6 +1444,35 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtCodigoMKeyPressed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        try {
+            Barcode barcode = null;
+            try {
+                barcode = BarcodeFactory.createCode39(txtCodigo.getText() + "", true);
+            } catch (Exception e) {
+                foto.setIcon(null);
+                System.out.println(e.getMessage());
+            }
+            barcode.setDrawingText(false);
+
+            barcode.setBarWidth(2);
+            barcode.setBarHeight(60);
+            BufferedImage image = new BufferedImage(300, 100, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = (Graphics2D) image.getGraphics();
+
+            try {
+                barcode.draw(g, 5, 20);
+
+            } catch (Exception e) {
+            }
+            ImageIcon icon = new ImageIcon(image);
+            foto.setIcon(icon);
+            barraBandera = true;
+        } catch (Exception e) {
+            barraBandera = false;
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
