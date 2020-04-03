@@ -196,6 +196,12 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 14)); // NOI18N
         jLabel1.setText("REGISTRAR ARTICULO");
 
+        jPanel9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPanel9KeyReleased(evt);
+            }
+        });
+
         jLabel24.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel24.setText("NOMBRE: ");
 
@@ -241,6 +247,9 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyTyped(evt);
@@ -987,7 +996,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         codigoID = controladorProducto.obtenerCodigo() + 999;
         Barcode barcode = null;
         try {
-            barcode = BarcodeFactory.createCode39(codigoID + "", true);
+            barcode = BarcodeFactory.createCodabar(codigoID + "");
         } catch (Exception e) {
             System.out.println("Error al calcular el codigo de barrar");
         }
@@ -1009,7 +1018,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private void CodigoEliminar(String codigoID) {
         Barcode barcode = null;
         try {
-            barcode = BarcodeFactory.createCode39(codigoID + "", true);
+            barcode = BarcodeFactory.createCodabar(codigoID + "");
         } catch (Exception e) {
             System.out.println("Error al calcular el codigo de barrar");
         }
@@ -1031,7 +1040,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private ImageIcon Codigolistar(String codigoID) {
         Barcode barcode = null;
         try {
-            barcode = BarcodeFactory.createCode39(codigoID + "", true);
+            barcode = BarcodeFactory.createCodabar(codigoID + "");
         } catch (Exception e) {
             System.out.println("Error al calcular el codigo de barrar");
         }
@@ -1053,7 +1062,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private void CodigoBuscar(String codigoID) {
         Barcode barcode = null;
         try {
-            barcode = BarcodeFactory.createCode39(codigoID + "", true);
+            barcode = BarcodeFactory.createCodabar(codigoID + "");
         } catch (Exception e) {
             System.out.println("Error al calcular el codigo de barrar");
         }
@@ -1338,7 +1347,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     private void CodigoModificar(String codigoID) {
         Barcode barcode = null;
         try {
-            barcode = BarcodeFactory.createCode39(codigoID + "", true);
+            barcode = BarcodeFactory.createCodabar(codigoID + "");
         } catch (Exception e) {
             System.out.println("Error al calcular el codigo de barrar");
         }
@@ -1409,50 +1418,34 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtStockBKeyTyped
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
-        
-
+       
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void fotoMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fotoMKeyPressed
-       
+
 
     }//GEN-LAST:event_fotoMKeyPressed
 
     private void txtCodigoMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoMKeyPressed
-         try {
-            Barcode barcode = null;
-            try {
-                barcode = BarcodeFactory.createCode39(txtCodigoM.getText() + "", true);
-            } catch (Exception e) {
-                fotoM.setIcon(null);
-                System.out.println(e.getMessage());
-            }
-            barcode.setDrawingText(false);
 
-            barcode.setBarWidth(2);
-            barcode.setBarHeight(60);
-            BufferedImage image = new BufferedImage(300, 100, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = (Graphics2D) image.getGraphics();
-
-            try {
-                barcode.draw(g, 5, 20);
-
-            } catch (Exception e) {
-            }
-            ImageIcon icon = new ImageIcon(image);
-            fotoM.setIcon(icon);
-        } catch (Exception e) {
-        }
     }//GEN-LAST:event_txtCodigoMKeyPressed
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
-        try {
+
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void jPanel9KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel9KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel9KeyReleased
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+         try {
             Barcode barcode = null;
             try {
-                barcode = BarcodeFactory.createCode39(txtCodigo.getText() + "", true);
+                barcode = BarcodeFactory.createCodabar(txtCodigo.getText() + "");
             } catch (Exception e) {
                 foto.setIcon(null);
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() +" es por que no lleva letras");
             }
             barcode.setDrawingText(false);
 
@@ -1472,7 +1465,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             barraBandera = false;
         }
-    }//GEN-LAST:event_txtCodigoKeyTyped
+    }//GEN-LAST:event_txtCodigoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

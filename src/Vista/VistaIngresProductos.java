@@ -453,7 +453,7 @@ public class VistaIngresProductos extends javax.swing.JInternalFrame {
     private void CodigoBuscar(String codigoID) {
         Barcode barcode = null;
         try {
-            barcode = BarcodeFactory.createCode39(codigoID + "", true);
+            barcode = BarcodeFactory.createCodabar(codigoID + "");
         } catch (Exception e) {
             System.out.println("Error al calcular el codigo de barrar");
         }
