@@ -8,6 +8,7 @@ package Controlador;
 import Modelo.Categoria;
 import Modelo.Producto;
 import Modelo.Proveedor;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Ricardo
  */
 public class ControladorProducto {
@@ -35,7 +35,7 @@ public class ControladorProducto {
 
     public boolean ingresar(Producto producto) {
         try {
-            String Query = "INSERT INTO producto(nombre,precio,stock,codigo,proveedor,categoria)values(?,?,?,?,?,?) ";
+            String Query = "INSERT INTO producto(nombre,precio,stock,codigo,proveedor,categoria, pre_cliente, pre_proveedor)values(?,?,?,?,?,?,?,?) ";
             PreparedStatement statement = coneccion.prepareStatement(Query);
 
             statement.setString(1, producto.getNombre());
@@ -44,6 +44,8 @@ public class ControladorProducto {
             statement.setString(4, producto.getCodigo());
             statement.setInt(5, producto.getProveedor().getId());
             statement.setInt(6, producto.getCategoria().getId());
+            statement.setInt(7, producto.getPre_cliente());
+            statement.setInt(8, producto.getPre_proveedor());
             statement.execute();
             // coneccion.commit();
 
@@ -69,7 +71,8 @@ public class ControladorProducto {
 
     public boolean actualizar(Producto producto) {
         try {
-            String Query = "UPDATE producto SET nombre = ?,precio = ?,stock = ?,codigo = ?,proveedor = ?,categoria = ? WHERE ID = " + producto.getId();
+            String Query = " UPDATE producto SET nombre = ?,precio = ?,stock = ?,codigo = ?,proveedor = ?,categoria = ? " +
+                    ", pre_cliente = ?, pre_proveedor = ? WHERE ID = " + producto.getId();
             PreparedStatement statement = coneccion.prepareStatement(Query);
 
             statement.setString(1, producto.getNombre());
@@ -78,6 +81,8 @@ public class ControladorProducto {
             statement.setString(4, producto.getCodigo());
             statement.setInt(5, producto.getProveedor().getId());
             statement.setInt(6, producto.getCategoria().getId());
+            statement.setInt(7, producto.getPre_cliente());
+            statement.setInt(8, producto.getPre_proveedor());
             statement.execute();
             //coneccion.commit();
 
@@ -102,8 +107,10 @@ public class ControladorProducto {
                 String codigo = seter.getString(5);
                 Categoria categoria = controladorCategoria.buscar(seter.getString(6));
                 Proveedor proveedor = controladorProveedor.buscarID(seter.getString(7));
+                int pre_cliente = seter.getInt(8);
+                int pre_proveedor = seter.getInt(9);
 
-                Producto producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo);
+                Producto producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo, pre_cliente, pre_proveedor);
 
                 lista.add(producto);
             }
@@ -124,11 +131,13 @@ public class ControladorProducto {
                 String nombre = seter.getString(2);
                 double precio = seter.getDouble(3);
                 int stock = seter.getInt(4);
-                 String codigo = seter.getString(5);
+                String codigo = seter.getString(5);
                 Proveedor proveedor = controladorProveedor.buscarID(seter.getString(7));
                 Categoria categoria = controladorCategoria.buscar(seter.getString(6));
+                int pre_cliente = seter.getInt(8);
+                int pre_proveedor = seter.getInt(9);
 
-                producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo);
+                producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo, pre_cliente, pre_proveedor);
                 return producto;
             }
         } catch (SQLException ex) {
@@ -136,7 +145,7 @@ public class ControladorProducto {
         }
         return producto;
     }
-    
+
     public Producto buscarID(String cod) {
         String sql = "select * from producto where id = '" + cod + "'";
         Producto producto = null;
@@ -148,11 +157,13 @@ public class ControladorProducto {
                 String nombre = seter.getString(2);
                 double precio = seter.getDouble(3);
                 int stock = seter.getInt(4);
-                 String codigo = seter.getString(5);
+                String codigo = seter.getString(5);
                 Proveedor proveedor = controladorProveedor.buscarID(seter.getString(6));
                 Categoria categoria = controladorCategoria.buscar(seter.getString(7));
+                int pre_cliente = seter.getInt(8);
+                int pre_proveedor = seter.getInt(9);
 
-                producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo);
+                producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo, pre_cliente, pre_proveedor);
                 return producto;
             }
         } catch (SQLException ex) {
