@@ -92,7 +92,33 @@ public class ControladorProducto {
             return false;
         }
     }
+    public List<Producto> listarLike(String txt) {
+        List<Producto> lista = new ArrayList<>();
+        String sql = "select * from producto where codigo LIKE '%"+txt+"%' or nombre like '%"+txt+"%' GROUP BY id";
+        try {
+            Statement se = coneccion.createStatement();
+            ResultSet seter = se.executeQuery(sql);
+            while (seter.next()) {
+                int id = seter.getInt(1);
+                String nombre = seter.getString(2);
+                double precio = seter.getDouble(3);
+                int stock = seter.getInt(4);
+                String codigo = seter.getString(5);
+                Categoria categoria = controladorCategoria.buscar(seter.getString(6));
+                Proveedor proveedor = controladorProveedor.buscarID(seter.getString(7));
+                int pre_cliente = seter.getInt(8);
+                int pre_proveedor = seter.getInt(9);
 
+                Producto producto = new Producto(id, nombre, precio, stock, categoria, proveedor, codigo, pre_cliente, pre_proveedor);
+
+                lista.add(producto);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error de lectura :" + ex.getMessage());
+        }
+        return lista;
+    }
+    
     public List<Producto> listar() {
         List<Producto> lista = new ArrayList<>();
         String sql = "select * from producto";

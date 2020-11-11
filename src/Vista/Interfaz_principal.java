@@ -36,7 +36,6 @@ public class Interfaz_principal extends javax.swing.JFrame {
     public Interfaz_principal() {
         initComponents();
 
-        System.out.println("jajaja");
     }
 
     public Interfaz_principal(Usuario usuario) {
@@ -45,6 +44,14 @@ public class Interfaz_principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblNombre.setText(usuario.getNombre());
         lblRol.setText(usuario.getRol());
+        cant_stock();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        if (usuario.getRol().equals("USER")) {
+            jMenu5.setVisible(false);
+            jMenu2.setVisible(false);
+        }
+    }
+    public void cant_stock(){
         txtNotificacion.setVisible(false);
         ControladorProducto controladorProducto = new ControladorProducto();
         List<Producto> lista = controladorProducto.listar();
@@ -57,13 +64,7 @@ public class Interfaz_principal extends javax.swing.JFrame {
                 txtNotificacion.setText(notificacion);
             }
         }
-        this.setExtendedState(MAXIMIZED_BOTH);
-        if (usuario.getRol().equals("USER")) {
-            jMenu5.setVisible(false);
-            jMenu2.setVisible(false);
-        }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,14 +84,13 @@ public class Interfaz_principal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        Buscararticulos = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         item_venta = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         item_venta1 = new javax.swing.JMenuItem();
@@ -99,6 +99,14 @@ public class Interfaz_principal extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         escritorio.setBackground(java.awt.Color.lightGray);
+        escritorio.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                escritorioComponentAdded(evt);
+            }
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                escritorioComponentRemoved(evt);
+            }
+        });
 
         lblRol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -109,6 +117,10 @@ public class Interfaz_principal extends javax.swing.JFrame {
         txtNotificacion.setFont(new java.awt.Font("MS Gothic", 1, 14)); // NOI18N
         txtNotificacion.setRows(5);
         jScrollPane1.setViewportView(txtNotificacion);
+
+        escritorio.setLayer(lblRol, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -134,9 +146,6 @@ public class Interfaz_principal extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(91, 91, 91))
         );
-        escritorio.setLayer(lblRol, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(lblNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setBorder(new javax.swing.border.MatteBorder(null));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/Clientes.png"))); // NOI18N
@@ -174,16 +183,21 @@ public class Interfaz_principal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem3);
 
-        Buscararticulos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Buscararticulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/product_list.png"))); // NOI18N
-        Buscararticulos.setText("Ingreso de Productos");
-        Buscararticulos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Buscararticulos.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/shippingBlack.png"))); // NOI18N
+        jMenuItem4.setText("Ingres de Productos");
+        jMenuItem4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscararticulosActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu2.add(Buscararticulos);
+        jMenuItem4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jMenuItem4KeyPressed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
 
         jMenuItem8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/devoluciones.png"))); // NOI18N
@@ -241,22 +255,6 @@ public class Interfaz_principal extends javax.swing.JFrame {
         jMenu6.setText("INVENTARIO");
         jMenu6.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
         jMenu6.setPreferredSize(new java.awt.Dimension(200, 50));
-
-        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/shippingBlack.png"))); // NOI18N
-        jMenuItem4.setText("Ingres de Productos");
-        jMenuItem4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenuItem4.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jMenuItem4KeyPressed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem4);
 
         jMenuItem5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/facturacion/imagenes/increasing-stocks-graphic-of-bars.png"))); // NOI18N
@@ -326,12 +324,6 @@ public class Interfaz_principal extends javax.swing.JFrame {
         vistaProducto.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void BuscararticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscararticulosActionPerformed
-        VistaIngresoProducto ingresoProducto = new VistaIngresoProducto();
-        escritorio.add(ingresoProducto);
-        ingresoProducto.show();
-    }//GEN-LAST:event_BuscararticulosActionPerformed
-
     private void item_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_ventaActionPerformed
         VistaFactura vistaFactura = new VistaFactura();
         escritorio.add(vistaFactura);
@@ -363,6 +355,15 @@ public class Interfaz_principal extends javax.swing.JFrame {
     private void item_venta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_venta1ActionPerformed
         imprimir();
     }//GEN-LAST:event_item_venta1ActionPerformed
+
+    private void escritorioComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_escritorioComponentAdded
+        cant_stock();
+        
+    }//GEN-LAST:event_escritorioComponentAdded
+
+    private void escritorioComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_escritorioComponentRemoved
+        cant_stock();
+    }//GEN-LAST:event_escritorioComponentRemoved
     public void imprimir() {
         Document document = new Document();
 
@@ -530,7 +531,6 @@ public class Interfaz_principal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Buscararticulos;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem item_venta;
     private javax.swing.JMenuItem item_venta1;

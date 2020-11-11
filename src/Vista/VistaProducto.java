@@ -6,9 +6,11 @@
 package Vista;
 
 import Controlador.ControladorCategoria;
+import Controlador.ControladorHistorial;
 import Controlador.ControladorProducto;
 import Controlador.ControladorProveedor;
 import Modelo.Categoria;
+import Modelo.Historial;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import java.awt.Color;
@@ -25,7 +27,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -48,6 +53,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
     ControladorProducto controladorProducto;
     ControladorCategoria controladorCategoria;
     ControladorProveedor controladorProveedor;
+    private ControladorHistorial controladorHistorial;
     private int codigoID = -999;
     private Producto productoAux = null;
     private boolean barraBandera = false;
@@ -57,6 +63,7 @@ public class VistaProducto extends javax.swing.JInternalFrame {
         controladorProducto = new ControladorProducto();
         controladorCategoria = new ControladorCategoria();
         controladorProveedor = new ControladorProveedor();
+        controladorHistorial = new ControladorHistorial();
 
         comboCategoria.addItem("SELCIONAR");
         comboCategoriaM.addItem("SELCIONAR");
@@ -1178,6 +1185,16 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
             if (controladorProducto.ingresar(producto)) {
                 JOptionPane.showMessageDialog(this, "Producto INGRESADO");
+                
+                Date date = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String fecha = dateFormat.format(date);
+                String motivo = "SE CREA EL PRODUCTO | " + producto.getNombre();
+                int cantidadAnt = producto.getStock();
+                int cantidadNew = producto.getStock();
+                int cantidadOld = 0;
+                Historial h = new Historial(0, fecha, motivo, producto, cantidadAnt, cantidadNew, cantidadOld);
+                controladorHistorial.ingresar(h);
                 limpiarCrear();
             } else {
                 JOptionPane.showMessageDialog(this, "EERRO AL INGRESAR:" + cont, "PRODUCTO", JOptionPane.ERROR_MESSAGE);
@@ -1358,6 +1375,16 @@ public class VistaProducto extends javax.swing.JInternalFrame {
 
             if (controladorProducto.actualizar(producto)) {
                 JOptionPane.showMessageDialog(this, "Producto ACTUALIZADO");
+                Date date = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String fecha = dateFormat.format(date);
+                String motivo = "SE ACTUALIZA  EL PRODUCTO | " + producto.getNombre();
+                int cantidadAnt = productoAux.getStock();
+                int cantidadNew = producto.getStock();
+                int cantidadOld = productoAux.getStock();
+                Historial h = new Historial(0, fecha, motivo, producto, cantidadAnt, cantidadNew, cantidadOld);
+                controladorHistorial.ingresar(h);
+                
                 limpiarModificar();
             } else {
                 JOptionPane.showMessageDialog(this, "EERRO AL INGRESAR:" + cont, "PRODUCTO", JOptionPane.ERROR_MESSAGE);
